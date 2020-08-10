@@ -1,7 +1,6 @@
 /*
 последовательности надо бы покороче выбрать 
 */
-
 CREATE OR REPLACE FUNCTION go_go (username VARCHAR) 
 	RETURNS TABLE (str text) 
 AS $$
