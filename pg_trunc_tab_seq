@@ -1,0 +1,27 @@
+/*
+последовательности надо бы покороче выбрать 
+*/
+
+CREATE OR REPLACE FUNCTION go_go (username VARCHAR) 
+	RETURNS TABLE (str text) 
+AS $$
+BEGIN
+	RETURN QUERY 
+        SELECT 'TRUNCATE TABLE '||quote_ident(schemaname||'.'||tablename)||' CASCADE;'  as tablename 
+          FROM pg_tables
+        WHERE 
+          tableowner = username
+        union all
+        SELECT 'ALTER SEQUENCE '||quote_ident(pgschema.nspname||'.'||c.relname) || ' restart with 1;' 
+          FROM 
+            pg_class c,
+            pg_user u,
+            pg_namespace pgschema 
+        WHERE 
+          u.usename = username and
+          c.relowner = u.usesysid and
+          c.relkind = 'S' and
+          pgschema.oid = c.relnamespace;
+END; $$ 
+LANGUAGE plpgsql;
+
