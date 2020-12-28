@@ -35,7 +35,7 @@ def smile(point, radius, color):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-  sd.resolution = (1200, 600)
+  sd.resolution = (1201, 602)
 
 
     # for y in range(50, 151, 50):
